@@ -1,5 +1,7 @@
 import fs from 'fs'
 import * as core from '@actions/core'
+import * as github from '@actions/github'
+import {WebhookPayload} from '@actions/github/lib/interfaces'
 import yaml from 'js-yaml'
 import run from '../debug'
 
@@ -13,6 +15,8 @@ beforeEach(() => {
     const envVar = `INPUT_${name.replace(/ /g, '_').toUpperCase()}`
     process.env[envVar] = doc.inputs[name]['default']
   })
+
+  github.context.payload = {pusher: {name: 'Mark'}} as WebhookPayload
 })
 
 afterEach(() => {
@@ -30,7 +34,7 @@ describe('debug action debug messages', () => {
     const debugMock = jest.spyOn(core, 'debug')
     await run()
     expect(debugMock).toHaveBeenCalledWith(
-      '👋 Hello! You are an amazing person! 🙌',
+      '👋 Hello Mark! You are an amazing person! 🙌',
     )
   })
 
@@ -39,7 +43,7 @@ describe('debug action debug messages', () => {
     await run()
     expect(setOutputMock).toHaveBeenCalledWith(
       'amazing-message',
-      '👋 Hello! You are an amazing person! 🙌',
+      '👋 Hello Mark! You are an amazing person! 🙌',
     )
   })
 
