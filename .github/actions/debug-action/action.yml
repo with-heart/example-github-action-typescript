@@ -1,6 +1,6 @@
 name: "debug-action"
 description: "Outputs debug information"
-author: "jeffrafter"
+author: "with-heart"
 inputs:
   amazing-creature:
     description: "What kind of amazing creature are you?"
