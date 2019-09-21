@@ -33,4 +33,13 @@ describe('debug action debug messages', () => {
       '👋 Hello! You are an amazing person! 🙌',
     )
   })
+
+  it('sets the action output', async () => {
+    const setOutputMock = jest.spyOn(core, 'setOutput')
+    await run()
+    expect(setOutputMock).toHaveBeenCalledWith(
+      'amazing-message',
+      '👋 Hello! You are an amazing person! 🙌',
+    )
+  })
 })
